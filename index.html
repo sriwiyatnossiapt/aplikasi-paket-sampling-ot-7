@@ -8,58 +8,45 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style>
         :root { --primary-green: #2e7d32; --secondary-green: #f1f8e9; --sidebar-width: 260px; }
-        body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; margin: 0; }
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
         
-        /* Sidebar Logic */
-        .sidebar { height: 100vh; background: white; border-right: 1px solid #dee2e6; position: fixed; width: var(--sidebar-width); z-index: 1001; transition: 0.3s; left: 0; }
-        .sidebar.collapsed { left: calc(var(--sidebar-width) * -1); }
-        
-        .nav-link { color: #555; padding: 12px 20px; display: flex; align-items: center; border-radius: 8px; margin: 5px 15px; text-decoration: none; cursor: pointer; transition: 0.2s; }
-        .nav-link:hover { background: var(--secondary-green); color: var(--primary-green); }
-        .nav-link.active { background: var(--primary-green); color: white !important; }
-        .nav-link i { margin-right: 12px; }
+        /* Sidebar Styles */
+        .sidebar { height: 100vh; background: white; border-right: 1px solid #dee2e6;  position: fixed;  width: var(--sidebar-width);  z-index: 1000; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            left: 0;
+        }
 
-        .main-content { margin-left: var(--sidebar-width); padding: 20px; transition: 0.3s; min-height: 100vh; }
-        .main-content.expanded { margin-left: 0; }
+        /* State Sidebar Tertutup */
+        .sidebar.collapsed {
+            left: calc(var(--sidebar-width) * -1);
+        }
 
-        /* Mobile Specific */
-        .sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; }
-        
- @media (max-width: 768px) {
-    .sidebar { 
-        left: -260px !important; /* Sembunyi ke kiri */
-        box-shadow: 5px 0 15px rgba(0,0,0,0.2);
-    }
-    
-    .sidebar.show { 
-        left: 0 !important; /* Muncul saat tombol burger diklik */
-    }
+        .nav-link { color: #555; padding: 12px 20px; display: flex; align-items: center; border-radius: 8px; margin: 5px 15px; text-decoration: none; transition: 0.3s; cursor: pointer; }
+        .nav-link:hover { background-color: var(--secondary-green); color: var(--primary-green); }
+        .nav-link.active { background-color: var(--primary-green); color: white !important; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .nav-link i { margin-right: 12px; font-size: 20px; }
 
-    .main-content { 
-        margin-left: 0 !important; 
-        padding: 15px; 
-    }
+        /* Main Content Styles */
+        .main-content { 
+            margin-left: var(--sidebar-width); 
+            padding: 40px; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    /* Tambahkan ini agar tombol burger mudah ditekan di HP */
-    #btnToggle {
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-}
+        /* Content saat Sidebar Tertutup */
+        .main-content.expanded {
+            margin-left: 0;
+        }
 
-/* Tambahan: Pastikan overlay ada di depan konten tapi di belakang sidebar */
-.sidebar-overlay {
-    z-index: 1000; 
-}
-.sidebar {
-    z-index: 1001; 
-}        .klaster-A { border-left-color: #2e7d32; background-color: #e8f5e9; }
-        .klaster-B { border-left-color: #f9a825; background-color: #fffde7; }
-        .klaster-C { border-left-color: #c62828; background-color: #ffebee; }
-        
-        #btnToggle { background: white; border: 1px solid #dee2e6; border-radius: 8px; padding: 5px 10px; color: var(--primary-green); }
+        .form-container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .header-section { 
+            margin-bottom: 30px; 
+            border-left: 5px solid var(--primary-green); 
+            padding-left: 15px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
