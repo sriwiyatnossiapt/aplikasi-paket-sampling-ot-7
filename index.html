@@ -146,13 +146,14 @@
             }
 
             /* Sidebar di mobile harus tetap visible saat di-toggle */
-            .sidebar {
-                left: -260px;
-            }
+            /* Mobile */
+.sidebar {
+    left: 0;
+}
 
-            .sidebar.show {
-                left: 0;
-            }
+.sidebar.hide {
+    left: -260px;
+}
         }
     </style>
 </head>
@@ -591,21 +592,29 @@
     // 2. FUNGSI SIDEBAR & NAVIGASI
     // ============================================
     function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('mainContent');
-        const overlay = document.getElementById('overlay');
-        
-        if (window.innerWidth <= 768) {
-            // Mobile: toggle show/hide
-            sidebar.classList.toggle('show');
-            overlay.classList.toggle('active');
+
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const overlay = document.getElementById('overlay');
+
+    if (window.innerWidth <= 768) {
+
+        sidebar.classList.toggle('hide');
+
+        if (sidebar.classList.contains('hide')) {
+            overlay.classList.remove('active');
         } else {
-            // Desktop: toggle collapsed
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('expanded');
+            overlay.classList.add('active');
         }
+
+    } else {
+
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('expanded');
+
     }
 
+}
     function showPage(pageId) {
         document.getElementById('sectionInput').style.display = pageId === 'input' ? 'block' : 'none';
         document.getElementById('sectionCluster').style.display = pageId === 'cluster' ? 'block' : 'none';
@@ -613,15 +622,15 @@
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         document.getElementById(pageId === 'input' ? 'menuInput' : 'menuCluster').classList.add('active');
 
-        if (window.innerWidth <= 768) {
-            // Close sidebar after selecting menu on mobile
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            if (sidebar.classList.contains('show')) {
-                sidebar.classList.remove('show');
-                overlay.classList.remove('active');
-            }
-        }
+       if (window.innerWidth <= 768) {
+
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    sidebar.classList.add('hide');
+    overlay.classList.remove('active');
+
+}
     }
 
     // ============================================
@@ -633,7 +642,19 @@
         document.getElementById('bulanAuto').value = String(d.getMonth() + 1).padStart(2, '0');
     }
 
-    window.onload = generateTimestamp;
+   window.onload = function(){
+
+    generateTimestamp();
+
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    if (window.innerWidth <= 768){
+        sidebar.classList.remove('hide');
+        overlay.classList.add('active');
+    }
+
+};
 
     // ============================================
     // 4. TRIGGER AUTO HIDE SAAT BLUR NAMA PRODUK
@@ -724,5 +745,4 @@
 
 </body>
 </html>
-
 
